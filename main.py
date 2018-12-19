@@ -6,10 +6,13 @@ with open(filename) as f:
     reader = csv.reader(f)
     header_row = next(reader)
 
-    Names, Totals,  HPs, Attacks, Defenses, SpAtks, SpDefs, Speeds, Generations = [], [], [], [], [], [], [], [], []
+    Names, IndexNum, Totals,  HPs, Attacks, Defenses, SpAtks, SpDefs, Speeds, Generations, Legends = [], [], [], [], [], [], [], [], [], [], []
     for row in reader:
         Pokemon = (row[1])
         Names.append(Pokemon)
+
+        Index = int(row[0])
+        IndexNum.append(Index)
 
         Total = int(row[4])
         Totals.append(Total)
@@ -35,6 +38,8 @@ with open(filename) as f:
         Generation = int(row[11])
         Generations.append(Generation)
 
+        Legends = (row[12])
+
 print(Names)
 print(Totals)
 print(HPs)
@@ -45,6 +50,12 @@ print(SpDefs)
 print(Speeds)
 
 fig = plt.figure(dpi=128, figsize=(10, 6))
+for L in Legends:
+    if L == True:
+        fig.xtick(c='g')
+
+
+plt.plot(Names, IndexNum, label='Index Num', c='#EC00FF')
 plt.plot(Names, Totals, label='Total', c='b')
 plt.plot(Names, HPs, label='HP', c='r')
 plt.plot(Names, Attacks, label='Attack', c='g')
@@ -62,5 +73,3 @@ plt.ylabel('Stats', fontsize=16,)
 plt.tick_params(axis='both', which='major', labelsize=10)
 plt.legend()
 plt.show()
-
-
